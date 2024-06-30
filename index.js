@@ -1,26 +1,10 @@
-const { sha256 } = require("ethereum-cryptography/sha256");
-const { toHex, utf8ToBytes } = require("ethereum-cryptography/utils");
+const { keccak256 } = require("ethereum-cryptography/keccak");
+const { utf8ToBytes } = require("ethereum-cryptography/utils");
 
-// the possible colors that the hash could represent
-const colors = ['red', 'green', 'blue', 'yellow', 'pink', 'orange'];
-
-// given a hash, return the color that created the hash
-function findColor(hash) {
-	//have an array of all hashes in hex form
-	const colorHashesHex = colors.map(color => toHex(sha256(utf8ToBytes(color))));
-    //loop over colors array
-	for (i = 0; i < colors.length + 1; i++) {
-		if (hash == colorHashesHex[i]) {
-			return colors[i];
-		}
-	}
+function hashMessage(message) {
+    const bytes = utf8ToBytes(message)
+    const hash = keccak256(bytes)
+    return hash
 }
 
-module.exports = findColor;
-
-console.log(findColor(toHex(sha256(utf8ToBytes("red")))));
-console.log(findColor(toHex(sha256(utf8ToBytes("green")))));
-console.log(findColor(toHex(sha256(utf8ToBytes("blue")))));	
-console.log(findColor(toHex(sha256(utf8ToBytes("yellow")))));
-console.log(findColor(toHex(sha256(utf8ToBytes("pink")))));
-console.log(findColor(toHex(sha256(utf8ToBytes("orange")))));
+module.exports = hashMessage;
