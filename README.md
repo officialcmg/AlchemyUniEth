@@ -22,3 +22,17 @@ Please note, this tutorial will require functions documented in release version 
 
 Your first step is to take the string message passed in and turn it into an array of UTF-8 bytes using the `utf8ToBytes` function. Then, take the `keccak256` hash of those bytes and return this value.
 
+## Modify this code
+```javascript
+const { keccak256 } = require("ethereum-cryptography/keccak");
+const { utf8ToBytes } = require("ethereum-cryptography/utils");
+
+function hashMessage(message) {
+    const bytes = utf8ToBytes(message)
+    const hash = keccak256(bytes)
+    return hash
+}
+
+module.exports = hashMessage;
+```
+
